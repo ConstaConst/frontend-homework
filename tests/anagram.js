@@ -17,4 +17,40 @@ QUnit.module('Тестируем функцию anagram', function () {
 
 		assert.deepEqual(anagram(input), output);
 	});
+
+    QUnit.test('Игнорирование регистра', function (assert) {
+        const input = [
+            'Кот', 'Пила', 'БароКко',
+            'сТоП', 'Ток', 'кошка',
+            'липа', 'коробка', 'пост'
+        ];
+
+        const output = [
+            [ 'БароКко', 'коробка' ],
+            [ 'Кот', 'Ток' ],
+            [ 'Пила', 'липа' ],
+            [ 'пост', 'сТоП' ]
+        ];
+
+        assert.deepEqual(anagram(input), output);
+    });
+
+    QUnit.test('Пустой ответ (нет анаграмм)', function (assert) {
+        const input = [
+            'кот', 'пила', 'барокко',
+            'стоп', 'кошка'
+        ];
+
+        const output = [];
+
+        assert.deepEqual(anagram(input), output);
+    });
+
+    QUnit.test('Некорректные входные данные', function (assert) {
+        const input = "not array";
+
+        const output = undefined;
+
+        assert.deepEqual(anagram(input), output);
+    });
 });
