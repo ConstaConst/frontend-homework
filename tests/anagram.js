@@ -47,10 +47,12 @@ QUnit.module('Тестируем функцию anagram', function () {
     });
 
     QUnit.test('Некорректные входные данные', function (assert) {
-        const input = "not array";
+        const input1 = "not array";
+        const input2 = ['string', 1, 'gnirts'];
 
         const output = undefined;
 
-        assert.deepEqual(anagram(input), output);
+        assert.deepEqual(anagram(input1), output);
+        assert.deepEqual(anagram(input2), output);
     });
 });

@@ -6,20 +6,23 @@ const anagram = words => {
         return;
     }
 
-    let anagrams = {};
-    words.forEach(function (word) {
-        const key = word.toLowerCase().split('').sort().join('');
-        if (key in anagrams) {
-            anagrams[key].push(word);
-        } else {
-            anagrams[key] = [word]
+    const anagrams = new Map();
+    for (const word of words) {
+        if (typeof word !== 'string') {
+            return;
         }
-    });
+        const key = word.toLowerCase().split('').sort().join('');
+        if (anagrams.has(key)) {
+            anagrams.get(key).push(word);
+        } else {
+            anagrams.set(key, [word])
+        }
+    }
 
-    let result = [];
-    for (const key in anagrams) {
-        if (anagrams[key].length >= 2) {
-            result.push(anagrams[key].sort());
+    const result = [];
+    for (const group of anagrams.values()) {
+        if (group.length >= 2) {
+            result.push(group.sort());
         }
     }
 
