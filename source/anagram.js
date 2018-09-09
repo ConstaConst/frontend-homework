@@ -2,31 +2,23 @@
 
 
 const anagram = words => {
-    if (!Array.isArray(words)) {
+    if (!Array.isArray(words) ||
+        words.some(word => { return typeof word !== 'string'; })) {
         return;
     }
-    for (const word of words) {
-        if (typeof word !== 'string') {
-            return;
-        }
-    }
 
-    const anagrams = new Map();
-    words.forEach(function (word) {
+    const anagrams = {};
+    words.forEach(word => {
         const key = word.toLowerCase().split('').sort().join('');
-        if (anagrams.has(key)) {
-            anagrams.get(key).push(word);
-        } else {
-            anagrams.set(key, [word])
-        }
+        anagrams[key] = (anagrams[key] || []).concat(word);
     });
 
     const result = [];
-    for (const group of anagrams.values()) {
+    Object.values(anagrams).forEach(group => {
         if (group.length >= 2) {
             result.push(group.sort());
         }
-    }
+    });
 
     return result.sort();
 };
